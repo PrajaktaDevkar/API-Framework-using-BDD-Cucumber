@@ -1,0 +1,28 @@
+Feature: Validate place API's
+
+  @AddPlace
+  Scenario Outline: Verify if place is sucessfully added using AddPlaceAPI # src/test/java/features/placeValidation.feature:3
+    Given Add place payload with "<name>" "<language>" "<address>"
+    When User call "AddPlaceAPI" with "Post" http request
+    Then the API code is sucess with the status code 200
+    And "status" in response body is "OK"
+    And "scope" in response body is "APP"
+    And verify place_Id created map to "<name>" using "GetPlaceAPI"
+
+    Examples: 
+
+  @AddPlace
+  Scenario Outline: Verify if place is sucessfully added using AddPlaceAPI # src/test/java/features/placeValidation.feature:13
+    Given Add place payload with "AAhouse" "English" "world cross center"  # StepDefination.add_place_payload_with(String,String,String)
+    When User call "AddPlaceAPI" with "Post" http request                  # StepDefination.user_call_with_http_request(String,String)
+    Then the API code is sucess with the status code 200                   # StepDefination.the_API_code_is_sucess_with_the_status_code(Integer)
+    And "status" in response body is "OK"                                  # StepDefination.in_response_body_is(String,String)
+    And "scope" in response body is "APP"                                  # StepDefination.in_response_body_is(String,String)
+    And verify place_Id created map to "AAhouse" using "GetPlaceAPI"       # StepDefination.verify_place_Id_created_map_to_using(String,String)
+
+  @DeletePlace
+  Scenario: Verify if delete place functionality is working  # src/test/java/features/placeValidation.feature:17
+    Given Delete place payload                               # StepDefination.delete_place_payload()
+    When User call "DeletePlaceAPI" with "Post" http request # StepDefination.user_call_with_http_request(String,String)
+    Then the API code is sucess with the status code 200     # StepDefination.the_API_code_is_sucess_with_the_status_code(Integer)
+    And "status" in response body is "OK"                    # StepDefination.in_response_body_is(String,String)
